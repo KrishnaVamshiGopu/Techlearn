@@ -41,8 +41,6 @@ app.use((err, req, res, next) => {
 const connectDB = async () => {
     try {
         const conn = await mongoose.connect(process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/auth_system', {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
         });
         console.log(`MongoDB Connected: ${conn.connection.host}`);
     } catch (error) {
