@@ -150,8 +150,6 @@ if (signinForm) {
                 body: JSON.stringify({ email, password })
             });
             
-            // Hide loading indicator
-            if (signinForm.querySelector('.btn')) signinForm.querySelector('.btn').classList.remove('loading');
             
             const data = await response.json();
             
