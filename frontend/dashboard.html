@@ -1,0 +1,1126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">`
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechLearn Solutions - Learning Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-orange: #FF6B35;
+            --secondary-orange: #FF8566;
+            --light-orange: #FFE5D9;
+            --darker-orange: #E55B2B;
+            --dark-bg: #0F0F23;
+            --card-bg: #1A1A2E;
+            --text-light: #E3E3E3;
+            --text-muted: #B0B0B0;
+            --gradient-primary: linear-gradient(135deg, #FF6B35 0%, #FF8566 100%);
+            --gradient-card: linear-gradient(135deg, rgba(255, 107, 53, 0.1) 0%, rgba(255, 133, 102, 0.05) 100%);
+            --shadow-primary: 0 8px 32px rgba(255, 107, 53, 0.3);
+            --shadow-card: 0 8px 24px rgba(0, 0, 0, 0.4);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--dark-bg);
+            color: var(--text-light);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Animated Background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(255, 107, 53, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 133, 102, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(255, 107, 53, 0.05) 0%, transparent 50%);
+            z-index: -1;
+            animation: backgroundPulse 20s ease-in-out infinite;
+        }
+
+        @keyframes backgroundPulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+
+        /* Navigation */
+        .navbar {
+            background: rgba(26, 26, 46, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 107, 53, 0.2);
+            padding: 1rem 2rem;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            text-decoration: none;
+            color: var(--text-light);
+            font-weight: 600;
+            font-size: 1.5rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo-image {
+            width: 30px;
+            height: 30px;
+            object-fit: contain;
+        }
+
+        .logo-text {
+            text-decoration: none;
+            color: var(--text-light);
+            font-weight: 600;
+            font-size: 1.5rem;
+        }
+
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            color: var(--text-muted);
+            text-decoration: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-primary);
+            transition: left 0.3s ease;
+            z-index: -1;
+        }
+
+        .nav-link:hover::before,
+        .nav-link.active::before {
+            left: 0;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid var(--primary-orange);
+            transition: transform 0.3s ease;
+        }
+
+        .user-avatar:hover {
+            transform: scale(1.1);
+        }
+
+        .btn {
+            background: var(--gradient-primary);
+            border: none;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 12px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-primary);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, transparent 100%);
+            transition: left 0.5s ease;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 40px rgba(255, 107, 53, 0.4);
+        }
+
+        .btn.secondary {
+            background: rgba(255, 107, 53, 0.1);
+            border: 1px solid var(--primary-orange);
+            color: var(--primary-orange);
+            box-shadow: none;
+        }
+
+        .btn.secondary:hover {
+            background: var(--primary-orange);
+            color: white;
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-top: 100px;
+            padding: 2rem;
+            min-height: calc(100vh - 100px);
+        }
+
+        .section {
+            display: none;
+            animation: fadeInUp 0.6s ease;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Welcome Section */
+        .welcome-section {
+            margin-bottom: 4rem;
+        }
+
+        .display-4 {
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Cards */
+        .card {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 107, 53, 0.2);
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-card);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .card:hover::before {
+            opacity: 1;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-card);
+            border-color: var(--primary-orange);
+        }
+
+        .card-body {
+            position: relative;
+            z-index: 1;
+            padding: 2rem;
+        }
+
+        .card-title {
+            color: var(--text-light);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .card-text {
+            color: var(--text-muted);
+        }
+
+        /* Progress Bar */
+        .progress {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            height: 12px;
+        }
+
+        .progress-bar {
+            background: var(--gradient-primary);
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            animation: progressShine 2s infinite;
+        }
+
+        @keyframes progressShine {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        /* Stats Cards */
+        .stat-card {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 107, 53, 0.2);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(transparent, var(--primary-orange), transparent);
+            animation: rotate 4s linear infinite;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .stat-card:hover::before {
+            opacity: 0.1;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .stat-card i {
+            font-size: 3rem;
+            color: var(--primary-orange);
+            margin-bottom: 1rem;
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover i {
+            transform: scale(1.2);
+        }
+
+        .stat-info span {
+            display: block;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--text-light);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-info label {
+            color: var(--text-muted);
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Exercises Grid */
+        .exercises-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        /* Profile Section */
+        .profile-header {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: var(--card-bg);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 107, 53, 0.2);
+        }
+
+        .profile-header img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 3px solid var(--primary-orange);
+        }
+
+        .profile-info h2 {
+            color: var(--text-light);
+            margin-bottom: 0.5rem;
+        }
+
+        .profile-info p {
+            color: var(--text-muted);
+            margin-bottom: 0.25rem;
+        }
+
+        .profile-actions {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--card-bg);
+            border-top: 1px solid rgba(255, 107, 53, 0.2);
+            padding: 3rem 2rem 1rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3,
+        .footer-section h4 {
+            color: var(--primary-orange);
+            margin-bottom: 1rem;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section a {
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: var(--primary-orange);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 107, 53, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: var(--primary-orange);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 107, 53, 0.1);
+            color: var(--text-muted);
+        }
+
+        /* Loading Spinner */
+        .loading-spinner {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 15, 35, 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        .spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid rgba(255, 107, 53, 0.3);
+            border-top: 4px solid var(--primary-orange);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 1rem;
+            }
+
+            .nav-menu {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .main-content {
+                padding: 1rem;
+            }
+
+            .profile-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+        }
+
+        /* Custom Bootstrap Overrides */
+        .text-muted {
+            color: var(--text-muted) !important;
+        }
+
+        .lead {
+            color: var(--text-muted);
+        }
+
+        /* Section Headers */
+        .section h2 {
+            color: var(--text-light);
+            font-weight: 600;
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section h2::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--gradient-primary);
+            border-radius: 2px;
+        }
+
+        .section-description {
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar d-flex justify-content-between align-items-center">
+        <a href="#" class="navbar-brand">
+            <div class="logo">
+                <img src="./assets/image.png" alt="Logo" class="logo-image">
+                <span class="logo-text">Code Playground</span>
+            </div>
+        </a>
+        <div class="nav-menu">
+            <a href="#home" class="nav-link active" data-section="home">
+                <i class="fas fa-home"></i> Home
+            </a>
+            <a href="#progress" class="nav-link" data-section="progress">
+                <i class="fas fa-chart-line"></i> Progress
+            </a>
+            <a href="#profile" class="nav-link" data-section="profile">
+                <i class="fas fa-user"></i> Profile
+            </a>
+            <div class="user-info">
+                <div class="user-avatar bg-gradient d-flex align-items-center justify-content-center">
+                    <i class="fas fa-user" style="color: white;"></i>
+                </div>
+                <button class="btn secondary" id="logoutBtn">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Loading Spinner -->
+    <div class="loading-spinner d-none" id="loadingSpinner">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Home Section -->
+        <section id="home" class="section active">
+            <!-- Welcome Section -->
+            <div class="welcome-section">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <h1 class="display-4">Welcome to Your Learning Journey!</h1>
+                        <p class="lead mb-4">Master web development through our structured learning path. Start with the basics and progress to advanced concepts with interactive exercises and real-world projects.</p>
+                        <div class="row g-4">
+                            <div class="col-md-4">
+                                <div class="card h-100">
+                                    <div class="card-body text-center">
+                                        <i class="fas fa-code mb-3" style="font-size: 3rem; color: var(--primary-orange);"></i>
+                                        <h5 class="card-title">HTML & CSS</h5>
+                                        <p class="card-text">Learn the building blocks of web development with modern CSS techniques</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="card h-100">
+                                    <div class="card-body text-center">
+                                        <i class="fab fa-js mb-3" style="font-size: 3rem; color: var(--secondary-orange);"></i>
+                                        <h5 class="card-title">JavaScript</h5>
+                                        <p class="card-text">Master the language of the web with ES6+ features and frameworks</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="card h-100">
+                                    <div class="card-body text-center">
+                                        <i class="fas fa-server mb-3" style="font-size: 3rem; color: var(--primary-orange);"></i>
+                                        <h5 class="card-title">Backend Development</h5>
+                                        <p class="card-text">Build robust server-side applications with modern architectures</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h5 class="card-title d-flex align-items-center">
+                                    <i class="fas fa-trophy me-2" style="color: var(--primary-orange);"></i>
+                                    Your Progress
+                                </h5>
+                                <div class="progress mb-3" style="height: 15px;">
+                                    <div class="progress-bar" role="progressbar" style="width: 35%" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100">35%</div>
+                                </div>
+                                <p class="text-muted mb-3">Excellent progress! You're on track to become a full-stack developer.</p>
+                                <div class="row text-center">
+                                    <div class="col-6">
+                                        <div class="fw-bold" style="color: var(--primary-orange);">12</div>
+                                        <small class="text-muted">Completed</small>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="fw-bold" style="color: var(--secondary-orange);">3</div>
+                                        <small class="text-muted">In Progress</small>
+                                    </div>
+                                </div>
+                                <hr style="border-color: rgba(255, 107, 53, 0.2);">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <small class="text-muted">Next: React Fundamentals</small>
+                                    <span class="badge" style="background: var(--gradient-primary);">2 left</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Exercises Section -->
+            <div class="exercises-section">
+                <h2>Available Exercises</h2>
+                <p class="section-description">Enhance your coding skills with our interactive exercises</p>
+                <div class="row" id="exercisesGrid">
+                    <!-- Exercise cards will be dynamically added here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Progress Section -->
+        <section id="progress" class="section">
+            <div class="progress-section">
+                <h2>Learning Analytics</h2>
+                <p class="section-description">Track your journey and celebrate your achievements</p>
+                <div class="row g-4 mb-5">
+                    <div class="col-md-4">
+                        <div class="stat-card">
+                            <i class="fas fa-check-circle"></i>
+                            <div class="stat-info">
+                                <span id="completedExercises">12</span>
+                                <label>Completed</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="stat-card">
+                            <i class="fas fa-clock"></i>
+                            <div class="stat-info">
+                                <span id="inProgressExercises">3</span>
+                                <label>In Progress</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="stat-card">
+                            <i class="fas fa-star"></i>
+                            <div class="stat-info">
+                                <span id="totalScore">850</span>
+                                <label>Total Score</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="mb-4">Recent Activity</h3>
+                        <div class="activity-list">
+                            <div class="d-flex align-items-center mb-3 p-3 rounded" style="background: rgba(255, 107, 53, 0.1);">
+                                <i class="fas fa-trophy me-3" style="color: var(--primary-orange); font-size: 1.5rem;"></i>
+                                <div>
+                                    <div class="fw-bold">Completed: CSS Grid Mastery</div>
+                                    <small class="text-muted">2 hours ago • Score: 95/100</small>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center mb-3 p-3 rounded" style="background: rgba(255, 133, 102, 0.1);">
+                                <i class="fas fa-code me-3" style="color: var(--secondary-orange); font-size: 1.5rem;"></i>
+                                <div>
+                                    <div class="fw-bold">Started: JavaScript Promises</div>
+                                    <small class="text-muted">1 day ago • Progress: 60%</small>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center mb-3 p-3 rounded" style="background: rgba(255, 107, 53, 0.1);">
+                                <i class="fas fa-medal me-3" style="color: var(--primary-orange); font-size: 1.5rem;"></i>
+                                <div>
+                                    <div class="fw-bold">Achievement Unlocked: HTML Expert</div>
+                                    <small class="text-muted">3 days ago • 100% completion rate</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Profile Section -->
+        <section id="profile" class="section">
+            <div class="profile-section">
+                <h2>Your Profile</h2>
+                <p class="section-description">Manage your TechLearn Solutions account and preferences</p>
+                <div class="profile-header">
+                    <div class="position-relative">
+                        <div class="bg-gradient rounded-circle d-flex align-items-center justify-content-center" style="width: 100px; height: 100px;">
+                            <i class="fas fa-user" style="font-size: 3rem; color: white;"></i>
+                        </div>
+                        <div class="position-absolute bottom-0 end-0 bg-success rounded-circle d-flex align-items-center justify-content-center" style="width: 25px; height: 25px;">
+                            <i class="fas fa-check" style="font-size: 0.8rem; color: white;"></i>
+                        </div>
+                    </div>
+                    <div class="profile-info">
+                        <h2 id="profileName">Alex Johnson</h2>
+                        <p id="profileEmail"><i class="fas fa-envelope me-2"></i>alex.johnson@example.com</p>
+                        <p id="profileJoinDate"><i class="fas fa-calendar me-2"></i>Joined December 2023</p>
+                        <p><i class="fas fa-map-marker-alt me-2"></i>New York, USA</p>
+                    </div>
+                </div>
+                <div class="row g-4">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Account Settings</h5>
+                                <div class="profile-actions">
+                                    <button class="btn w-100 mb-2" id="editProfileBtn">
+                                        <i class="fas fa-edit me-2"></i> Edit Profile
+                                    </button>
+                                    <button class="btn secondary w-100" id="changePasswordBtn">
+                                        <i class="fas fa-key me-2"></i> Change Password
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Learning Stats</h5>
+                                <div class="row text-center">
+                                    <div class="col-4">
+                                        <div class="fw-bold fs-4" style="color: var(--primary-orange);">28</div>
+                                        <small class="text-muted">Days Streak</small>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="fw-bold fs-4" style="color: var(--secondary-orange);">156</div>
+                                        <small class="text-muted">Hours Learned</small>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="fw-bold fs-4" style="color: var(--primary-orange);">92%</div>
+                                        <small class="text-muted">Success Rate</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row g-4 mt-3">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Achievements & Badges</h5>
+                                <div class="row g-3">
+                                    <div class="col-md-3 col-6">
+                                        <div class="text-center p-3 rounded" style="background: rgba(255, 107, 53, 0.1);">
+                                            <i class="fas fa-trophy mb-2" style="font-size: 2rem; color: var(--primary-orange);"></i>
+                                            <div class="fw-bold">HTML Master</div>
+                                            <small class="text-muted">Expert Level</small>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-6">
+                                        <div class="text-center p-3 rounded" style="background: rgba(255, 133, 102, 0.1);">
+                                            <i class="fas fa-medal mb-2" style="font-size: 2rem; color: var(--secondary-orange);"></i>
+                                            <div class="fw-bold">CSS Wizard</div>
+                                            <small class="text-muted">Advanced Level</small>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-6">
+                                        <div class="text-center p-3 rounded" style="background: rgba(255, 107, 53, 0.1);">
+                                            <i class="fas fa-star mb-2" style="font-size: 2rem; color: var(--primary-orange);"></i>
+                                            <div class="fw-bold">JS Ninja</div>
+                                            <small class="text-muted">Intermediate</small>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-6">
+                                        <div class="text-center p-3 rounded" style="background: rgba(255, 133, 102, 0.1); opacity: 0.5;">
+                                            <i class="fas fa-crown mb-2" style="font-size: 2rem; color: var(--text-muted);"></i>
+                                            <div class="fw-bold">React Hero</div>
+                                            <small class="text-muted">Locked</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>TechLearn Solutions</h3>
+                    <p>Empowering developers through interactive learning experiences and cutting-edge technology education.</p>
+                    <div class="d-flex gap-2 mt-3">
+                        <span class="badge" style="background: var(--gradient-primary);">
+                            <i class="fas fa-users me-1"></i> 10K+ Students
+                        </span>
+                        <span class="badge" style="background: var(--gradient-primary);">
+                            <i class="fas fa-star me-1"></i> 4.9 Rating
+                        </span>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#home"><i class="fas fa-home me-2"></i>Home</a></li>
+                        <li><a href="#progress"><i class="fas fa-chart-line me-2"></i>Progress</a></li>
+                        <li><a href="#profile"><i class="fas fa-user me-2"></i>Profile</a></li>
+                        <li><a href="#"><i class="fas fa-question-circle me-2"></i>Help Center</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact & Support</h4>
+                    <ul>
+                        <li><a href="mailto:support@techlearn.com"><i class="fas fa-envelope me-2"></i>support@techlearn.com</a></li>
+                        <li><a href="tel:+15551234567"><i class="fas fa-phone me-2"></i>+1 (555) 123-4567</a></li>
+                        <li><a href="#"><i class="fas fa-comments me-2"></i>Live Chat</a></li>
+                        <li><a href="#"><i class="fas fa-life-ring me-2"></i>24/7 Support</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Connect With Us</h4>
+                    <div class="social-links mb-3">
+                        <a href="#" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" title="GitHub"><i class="fab fa-github"></i></a>
+                        <a href="#" title="Discord"><i class="fab fa-discord"></i></a>
+                    </div>
+                    <div>
+                        <h5 style="color: var(--primary-orange); font-size: 1rem;">Newsletter</h5>
+                        <p class="text-muted small">Get the latest updates and learning tips</p>
+                        <div class="d-flex gap-2">
+                            <input type="email" class="form-control form-control-sm" placeholder="Your email" style="background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 107, 53, 0.3); color: var(--text-light);">
+                            <button class="btn btn-sm">Subscribe</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="d-flex justify-content-between align-items-center flex-wrap">
+                    <p>&copy; 2024 TechLearn Solutions. All rights reserved.</p>
+                    <div class="d-flex gap-3">
+                        <a href="#" class="text-muted small">Privacy Policy</a>
+                        <a href="#" class="text-muted small">Terms of Service</a>
+                        <a href="#" class="text-muted small">Cookie Policy</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="scripts/dashboard.js"></script>
+    <script>
+        // Navigation functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('.section');
+            const loadingSpinner = document.getElementById('loadingSpinner');
+
+            // Navigation click handler
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Show loading spinner
+                    loadingSpinner.classList.remove('d-none');
+                    
+                    setTimeout(() => {
+                        // Remove active class from all nav links and sections
+                        navLinks.forEach(nl => nl.classList.remove('active'));
+                        sections.forEach(section => section.classList.remove('active'));
+                        
+                        // Add active class to clicked nav link
+                        this.classList.add('active');
+                        
+                        // Show corresponding section
+                        const targetSection = this.getAttribute('data-section');
+                        document.getElementById(targetSection).classList.add('active');
+                        
+                        // Hide loading spinner
+                        loadingSpinner.classList.add('d-none');
+                        
+                        // Scroll to top
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }, 500);
+                });
+            });
+
+            // Logout button
+            document.getElementById('logoutBtn').addEventListener('click', function() {
+                if (confirm('Are you sure you want to logout?')) {
+                    loadingSpinner.classList.remove('d-none');
+                    setTimeout(() => {
+                        alert('Logged out successfully!');
+                        loadingSpinner.classList.add('d-none');
+                    }, 1000);
+                }
+            });
+
+            // Profile buttons
+            document.getElementById('editProfileBtn').addEventListener('click', function() {
+                alert('Edit Profile functionality coming soon!');
+            });
+
+            document.getElementById('changePasswordBtn').addEventListener('click', function() {
+                alert('Change Password functionality coming soon!');
+            });
+
+            // Exercise buttons
+            document.addEventListener('click', function(e) {
+                if (e.target.textContent === 'Start Exercise') {
+                    e.preventDefault();
+                    loadingSpinner.classList.remove('d-none');
+                    setTimeout(() => {
+                        alert('Exercise started! This would normally redirect to the exercise page.');
+                        loadingSpinner.classList.add('d-none');
+                    }, 1000);
+                }
+            });
+
+            // Animate counters on page load
+            function animateCounter(element, target, duration = 2000) {
+                const start = 0;
+                const increment = target / (duration / 16);
+                let current = start;
+                
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        current = target;
+                        clearInterval(timer);
+                    }
+                    element.textContent = Math.floor(current);
+                }, 16);
+            }
+
+            // Animate stats on page load
+            setTimeout(() => {
+                animateCounter(document.getElementById('completedExercises'), 12);
+                animateCounter(document.getElementById('inProgressExercises'), 3);
+                animateCounter(document.getElementById('totalScore'), 850);
+            }, 1000);
+
+            // Smooth hover effects for cards
+            const cards = document.querySelectorAll('.card');
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-10px) scale(1.02)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
+                });
+            });
+
+            // Add floating animation to user avatar
+            const userAvatar = document.querySelector('.user-avatar');
+            if (userAvatar) {
+                setInterval(() => {
+                    userAvatar.style.transform = 'translateY(-2px)';
+                    setTimeout(() => {
+                        userAvatar.style.transform = 'translateY(0)';
+                    }, 1000);
+                }, 3000);
+            }
+
+            // Newsletter subscription
+            const newsletterForm = document.querySelector('.footer-section input[type="email"]');
+            const subscribeBtn = document.querySelector('.footer-section .btn-sm');
+            
+            if (subscribeBtn) {
+                subscribeBtn.addEventListener('click', function() {
+                    const email = newsletterForm.value;
+                    if (email && email.includes('@')) {
+                        this.innerHTML = '<i class="fas fa-check"></i>';
+                        this.style.background = 'var(--gradient-primary)';
+                        setTimeout(() => {
+                            this.innerHTML = 'Subscribe';
+                            newsletterForm.value = '';
+                        }, 2000);
+                    } else {
+                        alert('Please enter a valid email address');
+                    }
+                });
+            }
+
+            // Add scroll effect to navbar
+            window.addEventListener('scroll', function() {
+                const navbar = document.querySelector('.navbar');
+                if (window.scrollY > 50) {
+                    navbar.style.background = 'rgba(26, 26, 46, 0.98)';
+                    navbar.style.boxShadow = '0 4px 20px rgba(255, 107, 53, 0.2)';
+                } else {
+                    navbar.style.background = 'rgba(26, 26, 46, 0.95)';
+                    navbar.style.boxShadow = 'none';
+                }
+            });
+
+            // Initialize tooltips if needed
+            const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+            tooltipTriggerList.map(function (tooltipTriggerEl) {
+                return new bootstrap.Tooltip(tooltipTriggerEl);
+            });
+        });
+
+        // Add particle effect (optional enhancement)
+        function createParticle() {
+            const particle = document.createElement('div');
+            particle.style.position = 'fixed';
+            particle.style.width = '4px';
+            particle.style.height = '4px';
+            particle.style.background = 'var(--primary-orange)';
+            particle.style.borderRadius = '50%';
+            particle.style.pointerEvents = 'none';
+            particle.style.opacity = '0.6';
+            particle.style.zIndex = '1';
+            
+            const startX = Math.random() * window.innerWidth;
+            const startY = window.innerHeight + 10;
+            
+            particle.style.left = startX + 'px';
+            particle.style.top = startY + 'px';
+            
+            document.body.appendChild(particle);
+            
+            const animation = particle.animate([
+                { transform: 'translateY(0px) translateX(0px)', opacity: 0.6 },
+                { transform: `translateY(-${window.innerHeight + 100}px) translateX(${(Math.random() - 0.5) * 100}px)`, opacity: 0 }
+            ], {
+                duration: 3000 + Math.random() * 2000,
+                easing: 'linear'
+            });
+            
+            animation.onfinish = () => {
+                particle.remove();
+            };
+        }
+
+        // Create particles occasionally
+        setInterval(createParticle, 2000);
+    </script>
+</body>
+</html>

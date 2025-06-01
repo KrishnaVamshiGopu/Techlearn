@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Playground</title>
+    <link rel="stylesheet" href="./styles/compiler.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- CodeMirror CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/theme/monokai.min.css">
+</head>
+<body>
+    <div class="app">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <img src="./assets/image.png" alt="Logo" class="logo-image">
+                    <span class="logo-text">Code Playground</span>
+                </div>
+                <div class="header-actions">
+                    <button class="btn btn-secondary" id="toggleInfoBtn">
+                        <i class="fas fa-info-circle me-2"></i> Exercise Info
+                    </button>
+                    <button class="btn btn-secondary" id="dashboardBtn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-layout-dashboard"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
+                        <span class="btn-text">Dashboard</span>
+                    </button>
+                    <button class="btn btn-secondary" id="saveBtn">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
+                        </svg>
+                        <span class="btn-text">Save</span>
+                    </button>
+                    <button class="btn btn-primary" id="runBtn">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M8 5v14l11-7z"/>
+                        </svg>
+                        <span class="btn-text">Run</span>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Exercise Info Panel (Hidden by default) -->
+        <section class="exercise-info-panel">
+            <div class="info-header">
+                <span class="info-title">Exercise Details</span>
+                <button class="close-btn" id="closeInfoPanel">&times;</button>
+            </div>
+            <div class="info-content">
+                <h3 id="exerciseTitle">Loading Exercise Title...</h3>
+                <h4>Theory:</h4>
+                <p id="exerciseTheory">Loading exercise theory...</p>
+                <h4>Description:</h4>
+                <p id="exerciseDescription">Loading exercise description...</p>
+            </div>
+        </section>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Editor Section -->
+            <section class="editor-section">
+                <div class="editor-header">
+                    <div class="tabs">
+                        <button class="tab active" data-tab="html">HTML</button>
+                        <button class="tab" data-tab="css">CSS</button>
+                        <button class="tab" data-tab="js">JavaScript</button>
+                    </div>
+                </div>
+                <div class="editor-container">
+                    <div class="editor-wrapper">
+                        <textarea 
+                            id="htmlEditor" 
+                            class="editor active" 
+                            placeholder="Enter your HTML code here..."
+                            spellcheck="false"
+                        ></textarea>
+                        <textarea 
+                            id="cssEditor" 
+                            class="editor" 
+                            placeholder="Enter your CSS code here..."
+                            spellcheck="false"
+                        ></textarea>
+                        <textarea 
+                            id="jsEditor" 
+                            class="editor" 
+                            placeholder="Enter your JavaScript code here..."
+                            spellcheck="false"
+                        ></textarea>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Preview Section -->
+            <section class="preview-section">
+                <div class="preview-header">
+                    <div class="preview-title">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                            <circle cx="12" cy="12" r="3"/>
+                        </svg>
+                        Live Preview
+                    </div>
+                    <div class="auto-refresh">
+                        <div class="refresh-indicator"></div>
+                        Auto-refresh
+                    </div>
+                </div>
+                <div class="preview-container">
+                    <iframe id="preview" class="preview-frame" sandbox="allow-scripts allow-same-origin"></iframe>
+                </div>
+            </section>
+        </main>
+
+        <!-- Status Bar -->
+        <footer class="status-bar">
+            <div class="status-left">
+                <div class="status-indicator">
+                    <div class="status-dot"></div>
+                    <span id="statusText">Ready</span>
+                </div>
+                <div class="current-tab">
+                    <span id="currentTabText">HTML</span>
+                </div>
+            </div>
+            <div class="status-right">
+                <span id="lastSaved">Auto-saved</span>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Scroll to Top Button -->
+    <button id="scrollToTopBtn" class="scroll-to-top-btn" title="Scroll to Top">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 19V5M5 12l7-7 7 7"/>
+        </svg>
+    </button>
+
+    <script src="./scripts/compiler.js"></script>
+    <!-- CodeMirror JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/mode/htmlmixed/htmlmixed.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/mode/css/css.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/mode/javascript/javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/addon/edit/closetags.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/addon/edit/closebrackets.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/addon/edit/matchbrackets.min.js"></script>
+    <!-- Optional: Add more CodeMirror addons if needed -->
+</body>
+</html>

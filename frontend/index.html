@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechLearn Solutions - Learn Coding</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-orange: #FF6B35;
+            --secondary-orange: #FF8566;
+            --light-orange: #FFE5D9;
+            --darker-orange: #E55B2B;
+            --dark-bg: #0F0F23;
+            --card-bg: #1A1A2E;
+            --text-light: #E3E3E3;
+            --text-muted: #B0B0B0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--dark-bg);
+            color: var(--text-light);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Animated Background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(255, 107, 53, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 133, 102, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(255, 107, 53, 0.05) 0%, transparent 50%);
+            z-index: -2;
+            animation: backgroundPulse 20s ease-in-out infinite;
+        }
+
+        @keyframes backgroundPulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+
+        /* Floating Shapes */
+        .floating-shapes {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .shape {
+            position: absolute;
+            background: linear-gradient(135deg, var(--primary-orange), var(--secondary-orange));
+            border-radius: 50%;
+            opacity: 0.1;
+            animation: float 20s infinite ease-in-out;
+        }
+
+        .shape:nth-child(1) {
+            width: 80px;
+            height: 80px;
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .shape:nth-child(2) {
+            width: 120px;
+            height: 120px;
+            top: 60%;
+            right: 10%;
+            animation-delay: -7s;
+        }
+
+        .shape:nth-child(3) {
+            width: 60px;
+            height: 60px;
+            bottom: 20%;
+            left: 70%;
+            animation-delay: -14s;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px) translateX(0px) rotate(0deg);
+            }
+            33% {
+                transform: translateY(-30px) translateX(20px) rotate(120deg);
+            }
+            66% {
+                transform: translateY(20px) translateX(-20px) rotate(240deg);
+            }
+        }
+
+        /* Navigation */
+        .navbar {
+            background: rgba(26, 26, 46, 0.95) !important;
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 107, 53, 0.2);
+        }
+
+        .navbar-brand {
+            color: var(--text-light) !important;
+            font-weight: 600;
+            font-size: 1.5rem;
+            background: linear-gradient(135deg, var(--primary-orange), var(--secondary-orange));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            transition: all 0.3s ease;
+        }
+
+        .navbar-brand:hover {
+            transform: scale(1.05);
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            background: linear-gradient(135deg, var(--primary-orange), var(--secondary-orange));
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 0.75rem;
+            animation: logoFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes logoFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-5px); }
+        }
+
+        /* Main Container */
+        .main-container {
+            min-height: calc(100vh - 76px);
+            display: flex;
+            align-items: center;
+            padding: 2rem 0;
+        }
+
+        .welcome-card {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 107, 53, 0.1);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            animation: slideInLeft 1s ease;
+        }
+
+        .form-card {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 107, 53, 0.1);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            animation: slideInRight 1s ease;
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .welcome-title {
+            font-size: 3rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary-orange), var(--secondary-orange));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1.5rem;
+            animation: titleGlow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes titleGlow {
+            from { filter: drop-shadow(0 0 5px rgba(255, 107, 53, 0.3)); }
+            to { filter: drop-shadow(0 0 15px rgba(255, 107, 53, 0.6)); }
+        }
+
+        .feature-item {
+            background: rgba(255, 107, 53, 0.05);
+            border: 1px solid rgba(255, 107, 53, 0.2);
+            border-radius: 15px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255, 107, 53, 0.1), rgba(255, 133, 102, 0.05));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .feature-item:hover::before {
+            opacity: 1;
+        }
+
+        .feature-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 24px rgba(255, 107, 53, 0.3);
+            border-color: var(--primary-orange);
+        }
+
+        .feature-icon {
+            color: var(--primary-orange);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-item:hover .feature-icon {
+            transform: scale(1.2);
+        }
+
+        /* Form Styles */
+        .form-tabs {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50px;
+            padding: 5px;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .form-tabs::before {
+            content: '';
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            width: calc(50% - 5px);
+            height: calc(100% - 10px);
+            background: linear-gradient(135deg, var(--primary-orange), var(--secondary-orange));
+            border-radius: 50px;
+            transition: left 0.3s ease;
+            z-index: 0;
+        }
+
+        .form-tabs.signup-active::before {
+            left: calc(50% + 5px);
+        }
+
+        .tab-btn {
+            width: 50%;
+            padding: 0.8rem;
+            border: none;
+            background: transparent;
+            color: var(--text-muted);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 50px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .tab-btn.active {
+            color: white;
+        }
+
+        .form-group {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-control {
+            background: rgba(255, 255, 255, 0.05) !important;
+            border: 1px solid rgba(255, 255, 255, 0.1) !important;
+            border-radius: 15px !important;
+            color: var(--text-light) !important;
+            padding: 0.8rem 1rem 0.8rem 3rem !important;
+            transition: all 0.3s ease !important;
+        }
+
+        .form-control:focus {
+            background: rgba(255, 255, 255, 0.08) !important;
+            border-color: var(--primary-orange) !important;
+            box-shadow: 0 0 0 0.2rem rgba(255, 107, 53, 0.25) !important;
+            color: var(--text-light) !important;
+        }
+
+        .form-control::placeholder {
+            color: var(--text-muted) !important;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary-orange);
+            z-index: 10;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-orange), var(--secondary-orange)) !important;
+            border: none !important;
+            border-radius: 50px !important;
+            padding: 1rem 2rem !important;
+            font-weight: 600 !important;
+            transition: all 0.3s ease !important;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px) !important;
+            box-shadow: 0 8px 25px rgba(255, 107, 53, 0.4) !important;
+        }
+
+        .social-btn {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: rgba(255, 107, 53, 0.1);
+            border: 1px solid rgba(255, 107, 53, 0.3);
+            color: var(--primary-orange);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .social-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary-orange), var(--secondary-orange));
+            transform: scale(0);
+            transition: transform 0.3s ease;
+            border-radius: 50%;
+        }
+
+        .social-btn:hover::before {
+            transform: scale(1);
+        }
+
+        .social-btn:hover {
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 107, 53, 0.4);
+        }
+
+        .social-btn i {
+            position: relative;
+            z-index: 1;
+        }
+
+        .password-requirements {
+            background: rgba(255, 107, 53, 0.1);
+            border: 1px solid rgba(255, 107, 53, 0.3);
+            border-radius: 10px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            display: none;
+        }
+
+        .password-requirements ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .password-requirements li {
+            color: var(--text-muted);
+            margin-bottom: 0.25rem;
+            padding-left: 1.5rem;
+            position: relative;
+            font-size: 0.9rem;
+        }
+
+        .password-requirements li::before {
+            content: '\f00d';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            color: #dc3545;
+        }
+
+        .password-requirements li.valid::before {
+            content: '\f00c';
+            color: #28a745;
+        }
+
+        .form-section {
+            display: none;
+        }
+
+        .form-section.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .alert {
+            border-radius: 10px !important;
+            border: none !important;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .welcome-title {
+                font-size: 2rem;
+            }
+            
+            .main-container {
+                padding: 1rem 0;
+            }
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo-image {
+            width: 30px;
+            height: 30px;
+            object-fit: contain;
+        }
+
+        .logo-text {
+            font-weight: 600;
+            font-size: 1.5rem;
+            background: linear-gradient(135deg, var(--primary-orange), var(--secondary-orange));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-shapes">
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="#">
+                <div class="logo">
+                    <img src="./assets/image.png" alt="Logo" class="logo-image">
+                    <span class="logo-text">Code Playground</span>
+                </div>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-container">
+        <div class="container">
+            <div class="row g-4 align-items-center">
+                <!-- Welcome Section -->
+                <div class="col-lg-6">
+                    <div class="welcome-card p-5 h-100">
+                        <h1 class="welcome-title">Welcome to TechLearn</h1>
+                        <p class="lead text-muted mb-4">Your journey to becoming a coding expert starts here. Join thousands of developers who trust TechLearn for their programming education.</p>
+                        
+                        <div class="row g-3">
+                            <div class="col-12">
+                                <div class="feature-item p-3 d-flex align-items-center">
+                                    <i class="fas fa-laptop-code feature-icon fs-4 me-3"></i>
+                                    <span>Interactive Coding Practice</span>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="feature-item p-3 d-flex align-items-center">
+                                    <i class="fas fa-users feature-icon fs-4 me-3"></i>
+                                    <span>Expert-Led Live Sessions</span>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="feature-item p-3 d-flex align-items-center">
+                                    <i class="fas fa-certificate feature-icon fs-4 me-3"></i>
+                                    <span>Industry-Recognized Certificates</span>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="feature-item p-3 d-flex align-items-center">
+                                    <i class="fas fa-code-branch feature-icon fs-4 me-3"></i>
+                                    <span>Real-World Project Portfolio</span>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="feature-item p-3 d-flex align-items-center">
+                                    <i class="fas fa-infinity feature-icon fs-4 me-3"></i>
+                                    <span>Lifetime Access & Updates</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Forms Section -->
+                <div class="col-lg-6">
+                    <div class="form-card p-5">
+                        <!-- Form Toggle -->
+                        <div class="form-tabs d-flex mb-4" id="formTabs">
+                            <button class="tab-btn active" onclick="switchForm('signin')">Sign In</button>
+                            <button class="tab-btn" onclick="switchForm('signup')">Sign Up</button>
+                        </div>
+
+                        <!-- Sign In Form -->
+                        <div class="form-section active" id="signin-form">
+                            <h3 class="text-center mb-4">Welcome Back</h3>
+                            <form id="signinForm">
+                                <div class="form-group">
+                                    <i class="fas fa-envelope input-icon"></i>
+                                    <input type="email" class="form-control" placeholder="Email" required>
+                                </div>
+                                <div class="form-group">
+                                    <i class="fas fa-lock input-icon"></i>
+                                    <input type="password" class="form-control" placeholder="Password" required>
+                                </div>
+                                <button type="submit" class="btn btn-primary w-100 mb-3">Login</button>
+                            </form>
+                            
+                            <p class="text-center text-muted mb-3">Or Sign in with social platforms</p>
+                            <div class="d-flex justify-content-center gap-3">
+                                <a href="#" class="social-btn">
+                                    <i class="fab fa-facebook-f"></i>
+                                </a>
+                                <a href="#" class="social-btn">
+                                    <i class="fab fa-twitter"></i>
+                                </a>
+                                <a href="#" class="social-btn">
+                                    <i class="fab fa-google"></i>
+                                </a>
+                                <a href="#" class="social-btn">
+                                    <i class="fab fa-linkedin-in"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Sign Up Form -->
+                        <div class="form-section" id="signup-form">
+                            <h3 class="text-center mb-4">Create Account</h3>
+                            <form id="signupForm">
+                                <div class="form-group">
+                                    <i class="fas fa-user input-icon"></i>
+                                    <input type="text" class="form-control" name="name" placeholder="Full Name" required>
+                                </div>
+                                <div class="form-group">
+                                    <i class="fas fa-envelope input-icon"></i>
+                                    <input type="email" class="form-control" name="email" placeholder="Email" required>
+                                </div>
+                                <div class="form-group">
+                                    <i class="fas fa-phone input-icon"></i>
+                                    <input type="tel" class="form-control" name="mobile_number" placeholder="Mobile Number" required>
+                                </div>
+                                <div class="form-group">
+                                    <i class="fas fa-venus-mars input-icon"></i>
+                                    <select class="form-control" name="gender" required>
+                                        <option value="">Select Gender</option>
+                                        <option value="male">Male</option>
+                                        <option value="female">Female</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <i class="fas fa-lock input-icon"></i>
+                                    <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
+                                </div>
+                                <div class="password-requirements" id="password-requirements">
+                                    <p class="mb-2 text-light fw-500">Password must contain:</p>
+                                    <ul>
+                                        <li id="length">At least 8 characters</li>
+                                        <li id="uppercase">One uppercase letter</li>
+                                        <li id="lowercase">One lowercase letter</li>
+                                        <li id="number">One number</li>
+                                        <li id="special">One special character</li>
+                                    </ul>
+                                </div>
+                                <div class="form-group">
+                                    <i class="fas fa-lock input-icon"></i>
+                                    <input type="password" class="form-control" id="confirm-password" name="confirm_password" placeholder="Confirm Password" required>
+                                </div>
+                                <div id="error-message"></div>
+                                <button type="submit" class="btn btn-primary w-100 mb-3">Sign Up</button>
+                            </form>
+                            
+                            <p class="text-center text-muted mb-3">Or Sign up with social platforms</p>
+                            <div class="d-flex justify-content-center gap-3">
+                                <a href="#" class="social-btn">
+                                    <i class="fab fa-facebook-f"></i>
+                                </a>
+                                <a href="#" class="social-btn">
+                                    <i class="fab fa-twitter"></i>
+                                </a>
+                                <a href="#" class="social-btn">
+                                    <i class="fab fa-google"></i>
+                                </a>
+                                <a href="#" class="social-btn">
+                                    <i class="fab fa-linkedin-in"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+    
+    <script src="scripts/auth.js"></script>
+</body>
+</html>

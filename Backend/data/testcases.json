@@ -1,0 +1,42 @@
+{
+  "1": {
+    "input": "",
+    "expectedOutput": "Hello, World!"
+  },
+  "2": {
+    "input": "2\n3",
+    "expectedOutput": "5"
+  },
+  "3": {
+    "input": "5",
+    "expectedOutput": "Odd"
+  },
+  "4": {
+    "input": "4\n5",
+    "expectedOutput": "9"
+  },
+  "5": {
+    "input": "3\n4\n5",
+    "expectedOutput": "12"
+  },
+  "6": {
+    "input": "10\n0",
+    "expectedOutput": "Cannot divide by zero"
+  },
+  "7": {
+    "input": "2\n3",
+    "expectedOutput": "Result after 2s: 6"
+  },
+  "8": {
+    "input": "",
+    "expectedOutput": "<h1>Hello from DOM</h1>"
+  },
+  "9": {
+    "input": "",
+    "expectedOutput": "{\"name\":\"John\",\"age\":30}"
+  },
+  "10": {
+    "input": "3\n4",
+    "expectedOutput": "The result is: 7"
+  }
+}
