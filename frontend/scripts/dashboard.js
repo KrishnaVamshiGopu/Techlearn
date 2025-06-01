@@ -1,5 +1,5 @@
 // Constants
-const API_BASE_URL = 'http://52.41.36.82:5000/api';
+const API_BASE_URL = 'https://techlearn-hla8.onrender.com/api';
 
 // DOM Elements
 const exercisesGrid = document.getElementById('exercisesGrid');
