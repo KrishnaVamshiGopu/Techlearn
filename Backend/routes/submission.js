@@ -3,7 +3,7 @@ const router = express.Router();
 const axios = require('axios');
 const auth = require('../middleware/authMiddleware');
 const runCode = require('../utils/runcode');
-const testCases = require('../data/testCases.json');
+const testCases = require('../data/testcases.json');
 
 // Submit code for evaluation
 router.post('/', auth, async (req, res) => {
