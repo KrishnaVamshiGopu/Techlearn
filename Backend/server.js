@@ -10,34 +10,7 @@ const app = express();
 app.use('/api/submission', submissionRoutes);
 
 // Enable CORS for all routes
-app.use(cors({
-    origin: [
-        // Local development URLs
-        'http://127.0.0.1:5500', 
-        'http://localhost:5500', 
-        'http://127.0.0.1:5501',
-        'http://localhost:3000',
-        
-        // Your deployed backend IPs (HTTP)
-        'http://52.41.36.82',
-        'http://54.191.253.12', 
-        'http://44.226.122.3',
-        
-        // Your deployed backend IPs (HTTPS)
-        'https://52.41.36.82',
-        'https://54.191.253.12',
-        'https://44.226.122.3',
-        
-        // Netlify frontend URL (replace with your actual Netlify URL)
-        'https://https://683b697b572570a3bb286211--tech-learn-kv.netlify.app/',
-        
-        // Allow all Netlify subdomains (optional)
-        /https:\/\/.*\.netlify\.app$/
-    ],
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
-    credentials: true // Enable if you're using cookies/sessions
-}));
+app.use(cors());
 
 
 // Add request logging
